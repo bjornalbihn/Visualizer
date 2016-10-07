@@ -1,0 +1,21 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Shaders/RayMarch03.shader">
+    <Files>
+      <File FileName="Assets/Shaders/RayMarch03.shader" Line="1" Column="1" />
+      <File FileName="Assets/Shaders/RayMarch01.shader" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GlobalShaderVariables.cs" Line="1" Column="1" />
+      <File FileName="Assets/Shaders/RayMarch02.shader" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/RenderMaterialFullscreen.cs" Line="1" Column="1" />
+      <File FileName="Assets/Shaders/Bubbles.shader" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ShaderToy.cs" Line="1" Column="1" />
+      <File FileName="Assets/Shaders/Stars.shader" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Camera/CameraMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Camera/CameraRotation.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
