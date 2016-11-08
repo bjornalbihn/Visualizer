@@ -1,8 +1,9 @@
-﻿Shader "Custom/Raymarching Volumetric Clouds  Example"
+﻿Shader "Custom/Raymarching Noise Clouds"
 {
 	Properties
 	{
 		_SphereSize("SphereSize", Float) = 50
+		_NoiseSize("NoiseSize", Vector) = (1,1,1,1)
 		_SinPower("SinPower", Range(0, 2)) = 1
 		_Movement("Movement", Vector) = (0,0,0,0)
 		_Noise("Noise", Range(0, 2)) = 1
@@ -38,6 +39,7 @@
 			float _FieldOfView;
 
 			// Local properties
+			float4 _NoiseSize;
 			float _SphereSize;
 			float _SinPower;
 			float _Noise;
@@ -68,6 +70,7 @@
 			float noise(float3 x) { x *= 4.0; float3 p = floor(x); float3 f = frac(x+(lerp(0, _SinTime, _Noise))); f = f*f*(3.0 - 2.0*f); float2 uv = (p.xy + float2(37.0, 17.0)*p.z) + f.xy; float2 rg = tex2D(_NoiseOffsets, (uv + 0.5) / 256.0).yx; return lerp(rg.x, rg.y, f.z); }
 			float fbm(float3 pos, int octaves) 
 			{ 
+				pos *=  _NoiseSize.xyz * _NoiseSize.w;
 				pos += _Movement.xyz * (_Time + (_SinTime *_SinPower)); 
 
 				float f = 0.; 

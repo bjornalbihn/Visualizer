@@ -33,10 +33,21 @@
 
 			// Global properties
 			sampler2D _NoiseOffsets;
+
 			float3 _CamPos;
 			float3 _CamRight;
 			float3 _CamUp;
 			float3 _CamForward;
+
+			float3 _Eye1Pos;
+			float3 _Eye1Right;
+			float3 _Eye1Up;
+			float3 _Eye1Forward;
+			float3 _Eye2Pos;
+			float3 _Eye2Right;
+			float3 _Eye2Up;
+			float3 _Eye2Forward;
+
 			float _AspectRatio;
 			float _FieldOfView;
 
@@ -59,19 +70,24 @@
 			float _Saturation;
 
 
-			struct v2f
-			{
-				float2 uv : TEXCOORD0;
-				float4 vertex : SV_POSITION;
-			};
+            struct v2f {
+                float4 position : SV_POSITION;
+                //float2 uv : TEXCOORD0; // stores uv
+                float3 worldSpacePosition : TEXCOORD0;
+                float3 worldSpaceView : TEXCOORD1; 
+            };
+            
+            v2f vert(appdata_full i) {
 
-			v2f vert(appdata_base  v)
-			{
-				v2f o;
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-				o.uv = v.texcoord;
-				return o;
-			}
+                v2f o;
+                o.position = mul (UNITY_MATRIX_MVP, i.vertex);
+                
+                float4 vertexWorld = mul(unity_ObjectToWorld, i.vertex);
+                
+                o.worldSpacePosition = vertexWorld.xyz;
+                o.worldSpaceView = vertexWorld.xyz - _WorldSpaceCameraPos;
+                return o;
+            }
 
 			float4 stars(float3 pos, float3 dir)
 			{
@@ -80,7 +96,7 @@
 				for (int r=0; r<_Volsteps; r++) 
 				{
 					float3 p=pos+s*dir*.5;
-					p = abs(float3(_Tile, _Tile, _Tile)-fmod(p,float3(_Tile, _Tile,_Tile)*2.)); // tiling fold
+					p = abs(float3(_Tile, _Tile, _Tile)  -fmod(p,float3(_Tile, _Tile,_Tile)*2)); // tiling fold
 					float pa,a=pa=0.;
 					for (int i=0; i<_Iterations; i++) 
 					{ 
@@ -91,7 +107,7 @@
 					float dm=max(0.,_DarkMatter-a*a*.001); //dark matter
 					a*=a*a; // add contrast
 					if (r>6) fade*=1.-dm; // dark matter, don't render near
-					//v+=vec3(dm,dm*.5,0.);
+					//v+=float3(dm,dm*.5,0.);
 					v+=fade;
 					v+=float3(s,s*s,s*s*s*s)*a*_Brightness*fade; // coloring based on distance
 					fade*=_DistFading; // distance fading
@@ -101,19 +117,14 @@
 				return float4(v*.01,1.);	
 			}
 
+            fixed4 frag(v2f i) : SV_Target 
+            {	
+				float3 ro = _WorldSpaceCameraPos;
+				float3 rd = normalize(i.worldSpaceView);
 
-			fixed4 frag(v2f i) : SV_Target
-			{
-				float2 uv = (i.uv - 0.5) * _FieldOfView;
-				uv.x *= _AspectRatio;
+				ro.x *= _Time.x * _Speed;
 
-				float3 ray = _CamUp * uv.y + _CamRight * uv.x + _CamForward;
-				float3 pos = _CamPos;
-				float3 p = pos;
-
-				pos.z += _Time.y * _Speed *.025;
-
-				return stars(pos, ray);
+				return stars(ro, rd);
 			}
 			ENDCG
 		}
