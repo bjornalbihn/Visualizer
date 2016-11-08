@@ -2,7 +2,12 @@
 {
 	Properties
 	{
-    	// How many iterations we should step through space
+ 		_Movement("Movement", Vector) = (0,0,0,0)
+ 		_NoiseSize("NoiseSize", Vector) = (1,1,1,1)
+		_SinPower("SinPower", Range(0, 2)) = 1
+		_Noise("Noise", Range(0, 2)) = 1
+
+   	   	// How many iterations we should step through space
 		_Iterations("Iterations", Range(0, 200)) = 100
         // How long through space we should step
 		_ViewDistance("View Distance", Range(0, 5)) = 2
@@ -35,6 +40,10 @@
 			float3 _CamForward;
 			float _AspectRatio;
 			float _FieldOfView;
+			float4 _Movement;
+			float4 _NoiseSize;
+			float _SinPower;
+			float _Noise;
 
 			// Local properties
 			int _Iterations;
@@ -58,11 +67,17 @@
 			}
 
 			// Noise function by Inigo Quilez - https://www.shadertoy.com/view/4sfGzS
-			float noise(float3 x) { x *= 4.0; float3 p = floor(x); float3 f = frac(x); f = f*f*(3.0 - 2.0*f); float2 uv = (p.xy + float2(37.0, 17.0)*p.z) + f.xy; float2 rg = tex2D(_NoiseOffsets, (uv + 0.5) / 256.0).yx; return lerp(rg.x, rg.y, f.z); }
+			float noise(float3 x) { x *= 4.0; float3 p = floor(x); float3 f = frac(x+ lerp(0, _SinTime, _Noise)); f = f*f*(3.0 - 2.0*f); float2 uv = (p.xy + float2(37.0, 17.0)*p.z) + f.xy; float2 rg = tex2D(_NoiseOffsets, (uv + 0.5) / 256.0).yx; return lerp(rg.x, rg.y, f.z); }
             
             // This function is the actual noise function we are going to be using.
             // The more octaves you give it, the more details we'll get in our noise.
-			float fbm(float3 pos, int octaves) { float f = 0.; for (int i = 0; i < octaves; i++) { f += noise(pos) / pow(2, i + 1); pos *= 2.01; } f /= 1 - 1 / pow(2, octaves + 1); return f; }
+			float fbm(float3 pos, int octaves) 
+			{ 
+				pos *=  _NoiseSize.xyz * _NoiseSize.w;
+				pos += _Movement.xyz * (_Time + (_SinTime *_SinPower)); 
+
+			float f = 0.; for (int i = 0; i < octaves; i++) { f += noise(pos) / pow(2, i + 1); pos *= 2.01; } f /= 1 - 1 / pow(2, octaves + 1); return f; 
+			}
 
 			fixed4 frag(v2f i) : SV_Target
 			{
