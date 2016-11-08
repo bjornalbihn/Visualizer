@@ -7,11 +7,11 @@ public class RenderMaterialFullscreen : MonoBehaviour
 	[SerializeField]
 	private Material material;
 
-	[SerializeField, Range(10, 200)]
-	private int width = 100;
+	[SerializeField, Range(10, 1920)]
+	private int width = 1920;
 
-	[SerializeField, Range(10, 200)]
-	private int height = 100;
+	[SerializeField, Range(10, 1080)]
+	private int height = 1080;
 
 	private void Awake()
 	{
