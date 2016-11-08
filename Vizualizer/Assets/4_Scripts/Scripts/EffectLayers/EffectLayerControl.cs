@@ -5,7 +5,9 @@ using InControl;
 
 public class EffectLayerControl : MonoBehaviour 
 {
+	[SerializeField] private int _startingLayer = -1;
 	[SerializeField] private bool _inputEffectsActive;
+	[SerializeField] private bool _canBeToggledOff;
 	[SerializeField] private List<EffectLayer> _layers;
 
 	private Dictionary<string, EffectLayer> _library = new Dictionary<string, EffectLayer>();
@@ -22,6 +24,10 @@ public class EffectLayerControl : MonoBehaviour
 
 			_layers[i].SetActive(false);
 		}
+
+		if (_startingLayer > 0 && _startingLayer <_layers.Count)
+			_layers[_startingLayer].SetActive(true);
+		
 	}
 
 	private void Update()
@@ -39,16 +45,20 @@ public class EffectLayerControl : MonoBehaviour
 		
 	private void SetActiveLayer(EffectLayer layer)
 	{
-		if(_activeLayer)
-			_activeLayer.SetActive(false);
+		EffectLayer previousActive = _activeLayer;
 
-		if (_activeLayer != layer)
+		if (previousActive != layer)
 		{
 			_activeLayer = layer;
 			_activeLayer.SetActive(true);
+			previousActive.SetActive(false);
 		}
-		else
+		else if (_canBeToggledOff)
+		{
 			_activeLayer = null;
+			previousActive.SetActive(false);
+		}
+		
 	}
 
 	public void ToggleEffectsActive()
