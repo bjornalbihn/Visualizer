@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ProceduralLineMaterial
-  m_Shader: {fileID: 4800000, guid: a4768915e976e4dc8bcc547bb4a75c60, type: 3}
+  m_Name: sparkles
+  m_Shader: {fileID: 4800000, guid: 5902503c8861f498999f1bbef9c91ec0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 3000
@@ -19,8 +19,8 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: c83b2f226301b44108f240d5470f51b4, type: 3}
-          m_Scale: {x: 2, y: 1}
+          m_Texture: {fileID: 2800000, guid: 7cb0332532eda45249fcd0d270223c73, type: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -134,11 +134,7 @@ Material:
       data:
         first:
           name: _Multiplier
-        second: -1.4
-      data:
-        first:
-          name: _XScrolling
-        second: 2
+        second: 3
     m_Colors:
       data:
         first:
@@ -151,4 +147,4 @@ Material:
       data:
         first:
           name: _TintColor
-        second: {r: 0.49264705, g: 0.49264705, b: 0.49264705, a: 1}
+        second: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

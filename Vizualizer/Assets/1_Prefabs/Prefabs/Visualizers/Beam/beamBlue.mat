@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ProceduralLineMaterial
-  m_Shader: {fileID: 4800000, guid: a4768915e976e4dc8bcc547bb4a75c60, type: 3}
+  m_Name: beamBlue
+  m_Shader: {fileID: 4800000, guid: 00adcfeee788e4dffbe441df6562ba4d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 3000
@@ -19,8 +19,8 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: c83b2f226301b44108f240d5470f51b4, type: 3}
-          m_Scale: {x: 2, y: 1}
+          m_Texture: {fileID: 2800000, guid: 477ac1c4e943c471da7f8e4f79659aea, type: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -133,12 +133,12 @@ Material:
         second: 1
       data:
         first:
-          name: _Multiplier
-        second: -1.4
+          name: _node_6869
+        second: 0
       data:
         first:
-          name: _XScrolling
-        second: 2
+          name: _Emissive
+        second: 0.49
     m_Colors:
       data:
         first:
@@ -151,4 +151,8 @@ Material:
       data:
         first:
           name: _TintColor
-        second: {r: 0.49264705, g: 0.49264705, b: 0.49264705, a: 1}
+        second: {r: 1, g: 0, b: 0, a: 0.5}
+      data:
+        first:
+          name: _Tint
+        second: {r: 0.41960788, g: 0.7960785, b: 0.8705883, a: 1}
