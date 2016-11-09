@@ -29,6 +29,7 @@ public class EffectLayerManager : MonoBehaviour
 		{
 			CheckEffectToggles(activeDevice);
 			CheckEffectsFired(activeDevice);
+            SendAnalogValues(activeDevice);
 		}
 
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -43,23 +44,23 @@ public class EffectLayerManager : MonoBehaviour
 
 	private void CheckEffectToggles(InputDevice activeDevice)
 	{
-		if (activeDevice.DPadLeft.WasReleased)
+		if (activeDevice.DPadLeft.WasPressed)
 			_foreground.ToggleEffectsActive();
-		if (activeDevice.DPadUp.WasReleased)
+		if (activeDevice.DPadUp.WasPressed)
 			_midground.ToggleEffectsActive();
-		if (activeDevice.DPadUp.WasReleased)
+		if (activeDevice.DPadUp.WasPressed)
 			_background.ToggleEffectsActive();
 	}
 
 	private void CheckEffectsFired(InputDevice activeDevice)
 	{
-		if (activeDevice.Action1.WasReleased)
+		if (activeDevice.Action1.WasPressed)
 			FireEffectsOnAllLayers(1);
-		if (activeDevice.Action2.WasReleased)
+		if (activeDevice.Action2.WasPressed)
 			FireEffectsOnAllLayers(2);
-		if (activeDevice.Action3.WasReleased)
+		if (activeDevice.Action3.WasPressed)
 			FireEffectsOnAllLayers(3);
-		if (activeDevice.Action4.WasReleased)
+		if (activeDevice.Action4.WasPressed)
 			FireEffectsOnAllLayers(4);
 	}
 		
@@ -69,4 +70,21 @@ public class EffectLayerManager : MonoBehaviour
 		_midground.FireEffectOnActiveLayer(effect);
 		_background.FireEffectOnActiveLayer(effect);
 	}
+
+    private void SendAnalogValues(InputDevice activeDevice)
+    {
+        float leftX = (activeDevice.LeftStick.X + 1) / 2;
+        float leftY = (activeDevice.LeftStick.Y + 1) / 2;
+        float rightX = (activeDevice.RightStick.X + 1) / 2;
+        float rightY = (activeDevice.RightStick.Y + 1) / 2;
+        float leftTrigger = activeDevice.LeftTrigger.RawValue;
+        float rightTrigger = activeDevice.RightTrigger.RawValue;
+
+        Vector2 leftStick = new Vector2(leftX, leftY);
+        Vector2 rightStick = new Vector2(rightX, rightY);
+
+        _foreground.SendAnalogValues(leftStick, rightStick, leftTrigger, rightTrigger);
+        _midground.SendAnalogValues(leftStick, rightStick, leftTrigger, rightTrigger);
+        _background.SendAnalogValues(leftStick, rightStick, leftTrigger, rightTrigger);
+    }
 }

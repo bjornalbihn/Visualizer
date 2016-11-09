@@ -8,6 +8,7 @@ public class EffectLayer : MonoBehaviour
 	public bool AffectedByInputEffects{protected get; set;}
 
 	public Action<int> OnEffectFired;
+    public Action<Vector2, Vector2, float, float> OnAnalogValuesChanged;
 
 	public virtual void SetActive(bool state)
 	{
@@ -19,4 +20,10 @@ public class EffectLayer : MonoBehaviour
 		if (OnEffectFired != null)
 			OnEffectFired(effect);
 	}
+
+    public void SetAnalogValues(Vector2 leftStick, Vector2 rightStick, float leftTrigger, float rightTrigger)
+    {
+        if (OnAnalogValuesChanged != null)
+            OnAnalogValuesChanged(leftStick, rightStick, leftTrigger, rightTrigger);
+    }
 }

@@ -73,4 +73,10 @@ public class EffectLayerControl : MonoBehaviour
 		if (_activeLayer && _inputEffectsActive)
 			_activeLayer.FireEffect(effect);
 	}
+
+    public void SendAnalogValues(Vector2 leftStick, Vector2 rightStick, float leftTrigger, float rightTrigger)
+    {
+        if (_activeLayer && _inputEffectsActive)
+            _activeLayer.SetAnalogValues(leftStick, rightStick, leftTrigger, rightTrigger);
+    }
 }
