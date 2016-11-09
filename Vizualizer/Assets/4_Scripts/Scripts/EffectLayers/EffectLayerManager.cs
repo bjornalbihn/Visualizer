@@ -30,6 +30,15 @@ public class EffectLayerManager : MonoBehaviour
 			CheckEffectToggles(activeDevice);
 			CheckEffectsFired(activeDevice);
 		}
+
+		if (Input.GetKeyDown(KeyCode.LeftArrow))
+			FireEffectsOnAllLayers(1);
+		if (Input.GetKeyDown(KeyCode.UpArrow))
+			FireEffectsOnAllLayers(2);
+		if (Input.GetKeyDown(KeyCode.RightArrow))
+			FireEffectsOnAllLayers(3);
+		if (Input.GetKeyDown(KeyCode.DownArrow))
+			FireEffectsOnAllLayers(4);
 	}
 
 	private void CheckEffectToggles(InputDevice activeDevice)
@@ -53,7 +62,7 @@ public class EffectLayerManager : MonoBehaviour
 		if (activeDevice.Action4.WasReleased)
 			FireEffectsOnAllLayers(4);
 	}
-
+		
 	private void FireEffectsOnAllLayers(int effect)
 	{
 		_foreground.FireEffectOnActiveLayer(effect);

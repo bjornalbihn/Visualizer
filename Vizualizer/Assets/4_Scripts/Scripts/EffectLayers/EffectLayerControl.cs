@@ -26,7 +26,7 @@ public class EffectLayerControl : MonoBehaviour
 		}
 
 		if (_startingLayer > 0 && _startingLayer <_layers.Count)
-			_layers[_startingLayer].SetActive(true);
+			SetActiveLayer(_layers[_startingLayer]);
 		
 	}
 

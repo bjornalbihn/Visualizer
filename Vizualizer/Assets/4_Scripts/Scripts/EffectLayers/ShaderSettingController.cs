@@ -5,6 +5,8 @@ using System;
 
 public class ShaderSettingController : MonoBehaviour 
 {
+	[SerializeField] private int _reactOnEffectNumber;
+
 	[SerializeField] private Material _material;
 	[SerializeField] private List<ShaderFloat> _floats;
 	[SerializeField] private List<ShaderVec4> _vectors;
@@ -16,6 +18,10 @@ public class ShaderSettingController : MonoBehaviour
 
 	private void Awake()
 	{
+		EffectLayer layer = GetComponent<EffectLayer>();
+		if (layer)
+			layer.OnEffectFired += EvaluateEffect;
+
 		_values = new List<ShaderValue>();
 		foreach (ShaderValue shaderValue in _floats) _values.Add(shaderValue);
 		foreach (ShaderValue shaderValue in _vectors) _values.Add(shaderValue);
@@ -25,6 +31,12 @@ public class ShaderSettingController : MonoBehaviour
 			shaderValue.Init(_material);
 
 		_changeTiming.onNewValue += OnChangeTimingUpdated;
+	}
+
+	private void EvaluateEffect(int effect)
+	{
+		if (_reactOnEffectNumber == effect)
+			Cycle(1);
 	}
 
 	public void Cycle(int dir)
