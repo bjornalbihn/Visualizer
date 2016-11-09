@@ -51,12 +51,14 @@ public class EffectLayerControl : MonoBehaviour
 		{
 			_activeLayer = layer;
 			_activeLayer.SetActive(true);
-			previousActive.SetActive(false);
+			if (previousActive)
+				previousActive.SetActive(false);
 		}
 		else if (_canBeToggledOff)
 		{
 			_activeLayer = null;
-			previousActive.SetActive(false);
+			if (previousActive)
+				previousActive.SetActive(false);
 		}
 		
 	}

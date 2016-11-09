@@ -11,7 +11,7 @@ public class EffectLayer : MonoBehaviour
 		Active = state;
 	}
 
-	public void FireEffect(int effect)
+	public virtual void FireEffect(int effect)
 	{
 		
 	}
