@@ -3,7 +3,7 @@
 	Properties{
 		_PropertyOne("BandingResolution",  Range(0.005, 0.1)) = .1
 		_PropertyTwo("Tilt", Range(-180, 180)) = 0
-		_PropertyThree("Brightness", Range(0.2, 1.2)) = 0.6
+		_PropertyThree("Brightness", Range(0.2, 1.2)) = 0.475
 		_PropertyFour("Messy", Range(0.00001, 1)) = 1
 		_PropertyFive("Multiplier", Range(0.0000001, 0.00001)) = 0.00001
 	}
