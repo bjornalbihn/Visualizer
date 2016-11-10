@@ -59,6 +59,10 @@ public class AudioInput : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		float[] levels = _audioBridge.Levels;
+
+		if (levels == null)
+			return;
+		
 		for(int i = 0; i<levels.Length; i++)
 		{
 			Gizmos.color = Color.red;
