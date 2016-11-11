@@ -20,12 +20,12 @@ public class CameraOffset : MonoBehaviour
     private void ProcessInput()
     {
         InputDevice activedevice = InputManager.ActiveDevice;
-        Vector2 pos = activedevice.RightStick.Value;
+        Vector2 pos = activedevice.LeftStick.Value;
         _targetPosition = new Vector3(pos.x, pos.y) * _maxDistance;
     }
 
     private void MoveTransform()
     {
-        transform.localPosition = Vector3.Lerp(transform.localPosition, _targetPosition, Time.deltaTime / _speed);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, _targetPosition, Time.deltaTime * _speed);
     }
 }

@@ -18,7 +18,7 @@ public class ControllerRotation : MonoBehaviour
     void Update()
     {
         InputDevice activedevice = InputManager.ActiveDevice;
-        Vector2 stickPos = activedevice.LeftStick.Value;
+        Vector2 stickPos = activedevice.RightStick.Value;
 
         ProcessRotation(stickPos);
         ProcessZoom(activedevice);
