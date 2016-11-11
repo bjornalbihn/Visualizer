@@ -7,8 +7,13 @@ public class LogoDisplayer : MonoBehaviour {
     [SerializeField] private MeshRenderer[] _renderers;
     [SerializeField] private Texture[] _logos;
     [SerializeField] private AnimationCurve _flashCurve;
+    [SerializeField] private AnimationCurve _intensityCurve;
     [SerializeField] private float _flashDuration = 0.4f;
     [SerializeField] private EffectLayer _effectLayer;
+
+    [SerializeField] private Color[] _randomColor;
+    [SerializeField] private bool _useRandomColor;
+
 
     void Start()
     {
@@ -16,7 +21,7 @@ public class LogoDisplayer : MonoBehaviour {
 
         foreach (MeshRenderer mr in _renderers)
         {
-            mr.material.color = new Color(1, 1, 1, 0);
+            mr.material.SetColor("_TintColor", Color.clear);
         }
     }
 
@@ -32,7 +37,7 @@ public class LogoDisplayer : MonoBehaviour {
     {
         foreach (MeshRenderer mr in _renderers)
         {
-            mr.material.color = new Color(1, 1, 1, 0);
+            mr.material.SetColor("_TintColor", Color.clear);
         }
 
         List<Texture> logos = new List<Texture>();
@@ -55,7 +60,7 @@ public class LogoDisplayer : MonoBehaviour {
             int random = Random.Range(0, logos.Count);
             Debug.Log("Picked index " + random);
             mr.material.mainTexture = logos[random];
-            mr.material.SetTexture("_EmissionMap", logos[random]);
+            mr.material.SetTexture("_MainTex", logos[random]);
             logos.Remove(logos[random]);
             Debug.Log("Number of textures remaining: " +logos.Count);
         }
@@ -65,14 +70,24 @@ public class LogoDisplayer : MonoBehaviour {
 
     IEnumerator FlashLogos()
     {
+        Color color = Color.white;
+
+        if (_useRandomColor)
+            color = _randomColor[Random.Range(0, _randomColor.Length)];
+
         float timer = _flashDuration;
         while (timer > 0)
         {
-            foreach(MeshRenderer mr in _renderers)
-            {
-                mr.material.color = new Color(1, 1, 1, _flashCurve.Evaluate(timer / _flashDuration));
-            }
             timer -= Time.deltaTime;
+            timer = Mathf.Max(timer, 0);
+
+            foreach (MeshRenderer mr in _renderers)
+            {
+                float intensity = _intensityCurve.Evaluate(timer / _flashDuration);
+                Color currentColor = color * intensity;
+                currentColor.a = _flashCurve.Evaluate(timer / _flashDuration);
+                mr.material.SetColor("_TintColor", currentColor);
+            }
             yield return 0;
         }
 
