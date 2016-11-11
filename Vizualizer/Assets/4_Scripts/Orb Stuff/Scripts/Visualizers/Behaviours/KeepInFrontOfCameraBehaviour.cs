@@ -14,7 +14,7 @@ public class KeepInFrontOfCameraBehaviour : MonoBehaviour
 
 
 	// Use this for initialization
-	void Awake () 
+	void Start () 
 	{
 		m_camera = Core.CameraController.CameraTransform;
 	}
