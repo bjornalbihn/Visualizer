@@ -14,6 +14,8 @@ public class LogoDisplayer : MonoBehaviour {
     [SerializeField] private Color[] _randomColor;
     [SerializeField] private bool _useRandomColor;
 
+	[SerializeField] private int _affectedByChannel = 4;
+
 
     void Start()
     {
@@ -27,7 +29,7 @@ public class LogoDisplayer : MonoBehaviour {
 
     void EvaluateEffect(int id)
     {
-        if (id == 4)
+		if (id == _affectedByChannel)
         {
             ChangeLogos();
         }
