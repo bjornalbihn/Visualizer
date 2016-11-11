@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class MMBToZoom : MonoBehaviour
 {
-	[SerializeField] private CameraSmoothAdjust m_smoothAdjust;
+	[SerializeField] private CameraController _controller;
 	[SerializeField] private float m_zoomSpeed = 0.5f;
 
 	[SerializeField] private float m_minZoom = 3f;
@@ -11,7 +12,7 @@ public class MMBToZoom : MonoBehaviour
 
 	public bool IsZooming;
 
-	void Update()
+	public void Update()
 	{
 		// If there are two touches on the device...
 		if (Input.GetMouseButtonDown(2) || Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButton(1))
@@ -29,8 +30,8 @@ public class MMBToZoom : MonoBehaviour
 		// Get initial position of the mouse and yaw/pitchAngle from mainCameraController
 		Vector3 startPosition = Input.mousePosition;
 		
-		float startZoom = m_smoothAdjust.Current.Zoom;
-		float targetZoom = m_smoothAdjust.Current.Zoom;
+		float startZoom = _controller.CameraSmoothAdjust.Current.Zoom;
+		float targetZoom = _controller.CameraSmoothAdjust.Current.Zoom;
 		
 		while (Input.GetMouseButton(2) || Input.GetKey(KeyCode.Z) || Input.GetMouseButton(1))
 		{
@@ -38,7 +39,7 @@ public class MMBToZoom : MonoBehaviour
 			Vector3 newMousePosition = Input.mousePosition;
 			
 			targetZoom = ((newMousePosition.y - startPosition.y) * m_zoomSpeed) + startZoom;
-			m_smoothAdjust.Target.Zoom = Mathf.Clamp(targetZoom, m_minZoom, m_maxZoom);
+			_controller.CameraSmoothAdjust.Target.Zoom = Mathf.Clamp(targetZoom, m_minZoom, m_maxZoom);
 			
 			yield return 0;
 		}

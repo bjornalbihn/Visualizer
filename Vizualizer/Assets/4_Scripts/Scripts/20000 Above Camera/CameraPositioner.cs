@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class CameraPositioner : MonoBehaviour 
+[Serializable]
+public class CameraPositioner 
 {
 	[SerializeField] private Transform transformAffected;
 	[SerializeField] private bool isEnabled;					// remove later?
@@ -10,16 +12,11 @@ public class CameraPositioner : MonoBehaviour
 	public Transform TransformAffected {get{return transformAffected;}}
 	public CameraValues CurrentValues {get{return currentValues;} set{currentValues = value;}}
 	
-	void Update()
-	{
-		SetCameraAngle();
-	}
-	
-	public void SetCameraAngle()
+	public void Update(CameraController controller)
 	{
 		if (isEnabled)
 		{
-			Vector3 position = transform.position;
+			Vector3 position = controller.transform.position;
 
 			Quaternion rotation = Quaternion.Euler(-currentValues.Pitch, currentValues.Yaw, 0);
 			transformAffected.transform.position = position + (rotation * Vector3.forward * currentValues.Zoom);
@@ -27,7 +24,6 @@ public class CameraPositioner : MonoBehaviour
 			//transformAffected.LookAt(position,Vector3.up);
 			rotation = Quaternion.Euler(currentValues.Pitch, currentValues.Yaw+180, 0);
 			transformAffected.rotation = rotation;
-
 		}
 	}
 }

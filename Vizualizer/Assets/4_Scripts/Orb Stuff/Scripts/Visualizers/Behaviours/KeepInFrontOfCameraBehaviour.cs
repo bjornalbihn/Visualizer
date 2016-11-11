@@ -16,7 +16,7 @@ public class KeepInFrontOfCameraBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Awake () 
 	{
-		m_camera = Core.CameraController.Camera.transform;
+		m_camera = Core.CameraController.CameraTransform;
 	}
 	
 	// Update is called once per frame

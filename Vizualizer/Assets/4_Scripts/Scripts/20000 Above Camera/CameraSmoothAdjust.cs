@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class CameraSmoothAdjust : MonoBehaviour 
+[Serializable]
+public class CameraSmoothAdjust 
 {
 	[SerializeField] private float turnSpeed = 0.5f;					// Camera rotation speed / sensitivity
 	[SerializeField] private float zoomSpeed = 0.3f;					// Zoom distance change speed
@@ -12,7 +14,7 @@ public class CameraSmoothAdjust : MonoBehaviour
 	public CameraValues Target { set { target = value; } get { return target; } }
 	public CameraValues Current { set { current = value; } get { return current; } }
 
-	void Update()
+	public void Update()
 	{
 		AdjustPitchAngle();
 		AdjustYawAngle();

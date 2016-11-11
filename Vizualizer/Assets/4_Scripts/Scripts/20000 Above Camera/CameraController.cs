@@ -3,40 +3,38 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour 
 {
+	public Transform CameraTransform {get{return m_camera;}}
 	public CameraPositioner CameraPositioner {get{return positioner;}}
-	public Camera Camera {get{return m_camera;}}
 	public CameraSmoothAdjust CameraSmoothAdjust {get{return smoothAdjust;}}
 
-	[SerializeField] private Camera m_camera;
+	[SerializeField] private Transform m_camera;
 	[SerializeField] private float maximumPitch = 88;
 	[SerializeField] private float mouseAffectTurnSpeed = 0.2f;	
-	[SerializeField] private CameraPositioner positioner;
-	[SerializeField] private CameraSmoothAdjust smoothAdjust;
-	[SerializeField] private CameraValues startValues;
 	[SerializeField] private CameraValues firstValues;
 
-	[SerializeField] private MMBToZoom m_zoomScript;
-	[SerializeField] private float m_moveInDelay = 1f;
+	[Header("Movement")]
+	[SerializeField] private MMBToZoom m_zooming;
+	[SerializeField] private CameraPositioner positioner;
+	[SerializeField] private CameraSmoothAdjust smoothAdjust;
 
 	private IEnumerator Start()
 	{
 		yield return 0;
 		positioner.CurrentValues.CopyValuesFromOther(firstValues);
 
-		smoothAdjust.Current.CopyValuesFromOther(startValues);
+		smoothAdjust.Current.CopyValuesFromOther(firstValues);
 		smoothAdjust.Target.CopyValuesFromOther(firstValues);
-
-		#if UNITY_ANDROID && !UNITY_EDITOR
-		enabled = false;
-		#endif
 	}
 
 	private void Update()
 	{
+		smoothAdjust.Update();
+		positioner.Update(this);
+
 		positioner.CurrentValues = smoothAdjust.Current;
 
 		// Change Angle
-		if (Input.GetMouseButtonDown(0) && !m_zoomScript.IsZooming)
+		if (Input.GetMouseButtonDown(0) && !m_zooming.IsZooming)
 		{
 			StartCoroutine(ChangeCameraAngle());
 		}
@@ -56,10 +54,10 @@ public class CameraController : MonoBehaviour
 
 		while (Input.GetMouseButton(0))
 		{
-			if (m_zoomScript.IsZooming)
+			if (m_zooming.IsZooming)
 			{
 				// wait if player is zooming
-				while (m_zoomScript.IsZooming)
+				while (m_zooming.IsZooming)
 				{
 					yield return 0;
 				}
