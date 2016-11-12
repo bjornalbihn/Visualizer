@@ -48,7 +48,7 @@ public class EffectLayerManager : MonoBehaviour
 			_foreground.ToggleEffectsActive();
 		if (activeDevice.DPadUp.WasPressed)
 			_midground.ToggleEffectsActive();
-		if (activeDevice.DPadUp.WasPressed)
+		if (activeDevice.DPadRight.WasPressed)
 			_background.ToggleEffectsActive();
 	}
 
