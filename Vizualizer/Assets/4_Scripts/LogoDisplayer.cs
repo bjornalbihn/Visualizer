@@ -27,6 +27,15 @@ public class LogoDisplayer : MonoBehaviour {
         }
     }
 
+    void OnDisable()
+    {
+        StopAllCoroutines();
+        foreach (MeshRenderer mr in _renderers)
+        {
+            mr.material.SetColor("_TintColor", Color.clear);
+        }
+    }
+
     void EvaluateEffect(int id)
     {
 		if (id == _affectedByChannel)
