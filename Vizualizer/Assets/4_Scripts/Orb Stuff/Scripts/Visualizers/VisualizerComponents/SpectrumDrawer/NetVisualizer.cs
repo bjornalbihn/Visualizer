@@ -35,7 +35,7 @@ public class NetVisualizer : SpectrumDrawer
 		}
 	}  
 
-	private void GetRandomPositions()
+	public void GetRandomPositions()
 	{
 		for (int i = 0; i<samplesAmount; i++)
 		{
@@ -45,7 +45,7 @@ public class NetVisualizer : SpectrumDrawer
 		}
 	}
 
-	private void SetRandomColors()
+	public void SetRandomColors()
 	{
 		if (m_colors.Length>0)
 		{
