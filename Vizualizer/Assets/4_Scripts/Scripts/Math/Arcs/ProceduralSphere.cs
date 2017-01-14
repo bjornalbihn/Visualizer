@@ -113,7 +113,7 @@ public class ProceduralSphere : MonoBehaviour
 		mesh.triangles = triangles;
 		
 		mesh.RecalculateBounds();
-		mesh.Optimize();
+		;
 	}
 
 	void Create360VideoSphere()
@@ -200,7 +200,7 @@ public class ProceduralSphere : MonoBehaviour
 		mesh.triangles = triangles;
 		
 		mesh.RecalculateBounds();
-		mesh.Optimize();
+		;
 	}
 
 
@@ -296,7 +296,7 @@ public class ProceduralSphere : MonoBehaviour
 		mesh.triangles = triangles;
 		
 		mesh.RecalculateBounds();
-		mesh.Optimize();
+		;
 	}
 
 

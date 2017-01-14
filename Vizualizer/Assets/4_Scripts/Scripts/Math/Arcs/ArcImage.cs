@@ -100,7 +100,7 @@ public class ArcImage : MonoBehaviour
 		mesh.triangles = triangles;
 		
 		mesh.RecalculateBounds();
-		mesh.Optimize();
+		;
 	}
 
 	private Vector3[] Bent()

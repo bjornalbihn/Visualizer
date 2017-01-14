@@ -23,7 +23,7 @@ public class EmitParticlesSphericalLayer : MonoBehaviour
 		m_system.GetParticles(particles);
 		for (int i = 0; i<particles.Length; i++)
 		{
-			particles[i].lifetime = Random.value * particles[i].startLifetime;
+			particles[i].remainingLifetime = Random.value * particles[i].startLifetime;
 		}
 		m_system.SetParticles(particles, particles.Length);
 	}
