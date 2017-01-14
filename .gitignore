@@ -10,3 +10,7 @@ Vizualizer/Vizualizer.CSharp.Editor.csproj
 Vizualizer/Vizualizer.sln
 Vizualizer/Assembly-CSharp-Editor.csproj
 Vizualizer/Vizualizer.userprefs
+Vizualizer/Vizualizer.Editor.Plugins.csproj
+Vizualizer/Vizualizer.Editor.csproj
+Vizualizer/Vizualizer.Plugins.csproj
+Vizualizer/Vizualizer.csproj

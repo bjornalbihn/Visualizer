@@ -29,7 +29,7 @@
 			#pragma fragment frag
 			#include "UnityCG.cginc"
 
-			float3 _CamPos = float3(0.5, 0.5, 0.12);
+			float3 _CamPos = float3(0.5, 0.5, 0.5);
 
 			float _Iterations;
 			float _FormuParam;
