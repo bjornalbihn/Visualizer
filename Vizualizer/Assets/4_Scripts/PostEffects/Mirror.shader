@@ -3,8 +3,8 @@
     Properties
     {
         _MainTex ("", 2D) = "white" {}
-        _XMirror ("X", Range(0,.5)) = .5
-        _YMirror ("Y", Range(0,.5)) = .5
+        _XMirror ("X", Range(0,1)) = .5
+        _YMirror ("Y", Range(0,1)) = .5
     }
 
     SubShader
@@ -43,8 +43,8 @@
               fixed4 frag (v2f i) : COLOR
               {
 
-                   i.uv.x = -abs(i.uv.x-_XMirror)+1-_XMirror;
-                   i.uv.y = -abs(i.uv.y-_YMirror)+1-_YMirror;
+                   i.uv.x = abs(i.uv.x-_XMirror)+_XMirror;
+                   i.uv.y = abs(i.uv.y-_YMirror)+_YMirror;
 
                    fixed4 col = tex2D(_MainTex, i.uv); //Get the orginal rendered color
 

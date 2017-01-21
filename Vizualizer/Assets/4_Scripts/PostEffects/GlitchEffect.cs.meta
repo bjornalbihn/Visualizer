@@ -1,11 +1,12 @@
 fileFormatVersion: 2
-guid: 597a8133d77a84d5d988146e2b967529
-timeCreated: 1484427387
+guid: 2ee19c9a139d7410bb7e68800f90b7f9
+timeCreated: 1485000756
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - mat: {fileID: 2100000, guid: b59f55954ea2043bb89fd1f2e00446ca, type: 2}
+  - shader: {fileID: 4800000, guid: 44567a3db988247ce9f90d600a0ffb09, type: 3}
+  - displacementMap: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
