@@ -15,6 +15,9 @@ public class ControllerRotation : MonoBehaviour
     [SerializeField]
     private float _maxZoom;
 
+    private bool _slowRotation = false;
+    private float _slowRotationMultiplier = 0.05f;
+
     void Update()
     {
         InputDevice activedevice = InputManager.ActiveDevice;
@@ -22,6 +25,11 @@ public class ControllerRotation : MonoBehaviour
 
         ProcessRotation(stickPos);
         ProcessZoom(activedevice);
+
+        if (activedevice.CommandWasPressed)
+        {
+            _slowRotation = !_slowRotation;
+        }
     }
 
     private void ProcessRotation(Vector2 stickPos)
@@ -29,8 +37,8 @@ public class ControllerRotation : MonoBehaviour
         float pitchAngle = _controller.CameraSmoothAdjust.Current.Pitch;
         float yawAngle = _controller.CameraSmoothAdjust.Current.Yaw;
 
-        pitchAngle += stickPos.y * _rotationSpeed / Time.deltaTime;
-        yawAngle += stickPos.x * _rotationSpeed /    Time.deltaTime;
+        pitchAngle += stickPos.y * _rotationSpeed / Time.deltaTime * (_slowRotation ? _slowRotationMultiplier : 1);
+        yawAngle += stickPos.x * _rotationSpeed / Time.deltaTime * (_slowRotation ? _slowRotationMultiplier : 1);
         pitchAngle = Mathf.Clamp(pitchAngle, -88, 88);
 
         _controller.CameraSmoothAdjust.Target.Pitch = pitchAngle;
