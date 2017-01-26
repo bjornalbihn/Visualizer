@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ScaleWithAudio : MonoBehaviour 
 {
 	[System.Serializable]
-	private class ObjectToScale
+	public class ObjectToScale
 	{
 		public GameObject _gameObject;
 		public int _band;
 	}
 
 	[SerializeField] private AudioBridge _audioBridge;
-	[SerializeField] private ObjectToScale[] _objectsToScale;
+	private List<ObjectToScale> _objectsToScale = new List<ObjectToScale>();
 	[SerializeField] private float _smoothing;
 	[SerializeField] private float _minExpectedVolume = -55f;
 	[SerializeField] private float _maxExpectedVolume = -35f;
@@ -40,4 +41,9 @@ public class ScaleWithAudio : MonoBehaviour
 			}
 		}
 	}
+
+    public void AddObjectToScale(ObjectToScale objectToScale)
+    {
+        _objectsToScale.Add(objectToScale);
+    }
 }

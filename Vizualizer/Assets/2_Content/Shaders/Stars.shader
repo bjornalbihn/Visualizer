@@ -2,19 +2,19 @@
 {
 	Properties
 	{
-		_Iterations("Iterations", Range(0, 100)) = 7
+		_Iterations("Iterations", Range(0, 100)) = 18
 		_FormuParam("ForumParam", Float) = .53
 
-		_Volsteps("Volume Steps", Range(0, 100)) = 14
+		_Volsteps("Volume Steps", Range(0, 100)) = 1
 		_StepSize("Step Size", Float) = .1
 
-		_Tile("Tile", Float) = -0.08
+		_Tile("Tile", Float) = -0.2
 		_Speed("Speed", Float) = .9
 		_Flatten("Flatten", Range(0, 1)) = 1
 
-		_Brightness("Brightness", Range(0, 1)) = 0.0015
+		_Brightness("Brightness", Range(0, 1)) = 0.005
 		_DistFading("DistFading", Range(0, 2)) = 0.88
-		_Saturation("Saturation", Range(0, 2)) = 0.172
+		_Saturation("Saturation", Range(0, 2)) = 0.25
 
 
 	}
