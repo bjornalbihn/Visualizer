@@ -5,6 +5,8 @@ using InControl;
 
 public class EffectLayerControl : MonoBehaviour 
 {
+	public List<EffectLayer> Layers {get {return _layers;}}
+
 	[SerializeField] private int _startingLayer = -1;
 	[SerializeField] private bool _inputEffectsActive;
 	[SerializeField] private bool _canBeToggledOff;
@@ -43,7 +45,7 @@ public class EffectLayerControl : MonoBehaviour
 		}
 	}
 		
-	private void SetActiveLayer(EffectLayer layer)
+	public void SetActiveLayer(EffectLayer layer)
 	{
 		EffectLayer previousActive = _activeLayer;
 

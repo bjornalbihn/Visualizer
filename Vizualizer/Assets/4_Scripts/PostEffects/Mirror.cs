@@ -35,7 +35,7 @@ public class Mirror : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Comma)) SetSetting(7);
     }
 
-    void SetSetting(int setting)
+    public void SetSetting(int setting)
     {
         _currentSetting = (setting) % _settings.Length;
         MirrorSetting newSetting = _settings[_currentSetting];

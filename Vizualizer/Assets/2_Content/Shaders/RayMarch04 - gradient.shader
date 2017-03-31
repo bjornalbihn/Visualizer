@@ -3,10 +3,12 @@
 	Properties
 	{
 		_SphereSize("SphereSize", Float) = 50
+		_InnerSphereSize("InnerSphereSize", Float) = 0
 		_NoiseSize("NoiseSize", Vector) = (1,1,1,1)
 		_SinPower("SinPower", Range(0, 2)) = 1
 		_Movement("Movement", Vector) = (0,0,0,0)
 		_Noise("Noise", Range(0, 2)) = 1
+		_Overload("OverLoad", Range(0, 10)) = 1
 
 		[Header(March)]
 		_MarchIterations("Iterations", Range(0, 100)) = 50
@@ -45,10 +47,12 @@
 			// Local properties
 			float4 _NoiseSize;
 			float _SphereSize;
+			float _InnerSphereSize;
 			float _SinPower;
 			float _Noise;
 			float4 _Movement;
 
+			float _Overload;
 			float4 _Color;
 			float4 _Background;
 			int _MarchIterations;
@@ -92,7 +96,11 @@
 
 			float distFunc(float3 pos)
 			{
-				return length(pos) - _SphereSize;
+				float l = length(pos);
+				float d1 = l - _SphereSize;
+				float d2 = l - _InnerSphereSize;
+
+				return  max(d1, -d2) ;
 			}
 
 			float march(in float3 ray, inout float3 pos)
@@ -141,7 +149,7 @@
 				float3 color = tex2D(_Gradient, float2(lerp, _GradientY) ).rgb;
 
 				//float3 color = lerp(_Color.rgb, _Background.rgb, );
-				return fixed4(color * cloudFactor * 2, 1);
+				return fixed4(color * cloudFactor * 2 * _Overload, 1);
 			}
 			ENDCG
 		}
