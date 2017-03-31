@@ -13,6 +13,9 @@ ModelImporter:
     100010: Mesh (2)
     100012: Mesh (3)
     100014: Mesh (4)
+    100016: SingleHexSide
+    100018: Triangle
+    100020: TriHex
     400000: Hex Lines
     400002: Hex Lines Outer thin
     400004: Hexagon
@@ -21,6 +24,9 @@ ModelImporter:
     400010: Mesh (2)
     400012: Mesh (3)
     400014: Mesh (4)
+    400016: SingleHexSide
+    400018: Triangle
+    400020: TriHex
     2300000: Hex Lines
     2300002: Hex Lines Outer thin
     2300004: Hexagon
@@ -28,6 +34,9 @@ ModelImporter:
     2300008: Mesh (2)
     2300010: Mesh (3)
     2300012: Mesh (4)
+    2300014: SingleHexSide
+    2300016: Triangle
+    2300018: TriHex
     3300000: Hex Lines
     3300002: Hex Lines Outer thin
     3300004: Hexagon
@@ -35,6 +44,9 @@ ModelImporter:
     3300008: Mesh (2)
     3300010: Mesh (3)
     3300012: Mesh (4)
+    3300014: SingleHexSide
+    3300016: Triangle
+    3300018: TriHex
     4300000: Hexagon
     4300002: Hex Lines
     4300004: Hex Lines Outer thin
@@ -42,6 +54,9 @@ ModelImporter:
     4300008: Mesh (2)
     4300010: Mesh (3)
     4300012: Mesh (4)
+    4300014: TriHex
+    4300016: SingleHexSide
+    4300018: Triangle
   materials:
     importMaterials: 1
     materialName: 0
@@ -88,6 +103,7 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -98,7 +114,10 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
   humanoidOversampling: 1
