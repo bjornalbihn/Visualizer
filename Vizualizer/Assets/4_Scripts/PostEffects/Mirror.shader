@@ -44,7 +44,8 @@
               {
 
                    i.uv.x = abs(i.uv.x-_XMirror)+_XMirror;
-                   i.uv.y = 1- abs(i.uv.y-_YMirror)+_YMirror;
+                   i.uv.y = abs(i.uv.y-_YMirror)+_YMirror;
+                   i.uv.y = 1-i.uv.y;
                    //i.uv.y = abs(i.uv.y-_YMirror)+_YMirror;
 
                    fixed4 col = tex2D(_MainTex, i.uv); //Get the orginal rendered color
