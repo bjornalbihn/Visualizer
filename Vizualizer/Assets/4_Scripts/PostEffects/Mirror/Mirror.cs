@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.ImageEffects;
 using UnityEngine;
 using System;
 
-public class Mirror : MonoBehaviour
+public class Mirror : ImageEffectBase
 {
-    [SerializeField] private bool _debug;
-    public Material mat;
-    [Range(0, 1)] public float _horizontal;
-    [Range(0, 1)] public float _vertical;
+	[SerializeField] private MirrorValues _values;
+	private MirrorSetting _currentSetting;
 
-    [SerializeField] private MirrorSetting[] _settings;
-    private int _currentSetting;
-
+	[Header("Lerp Values")]
     [SerializeField] private LerpValue _horizontalValue;
     [SerializeField] private LerpValue _verticalValue;
 
@@ -37,37 +34,28 @@ public class Mirror : MonoBehaviour
 
     public void SetSetting(int setting)
     {
-        _currentSetting = (setting) % _settings.Length;
-        MirrorSetting newSetting = _settings[_currentSetting];
+		_currentSetting = _values.SetSetting(setting);
 
-        _horizontalValue.SetValue(newSetting.Horizontal, false);
-        _verticalValue.SetValue(newSetting.Vertical, false);
+		_horizontalValue.SetValue(_currentSetting.Horizontal, false);
+		_verticalValue.SetValue(_currentSetting.Vertical, false);
     }
 
 // Called by the camera to apply the image effect
     void OnRenderImage (RenderTexture source, RenderTexture destination)
     {
-        if (!_debug)
+		if (!_values.Debug)
         {
-            mat.SetFloat("_XMirror", _horizontalValue.CurrentValue);
-            mat.SetFloat("_YMirror", _verticalValue.CurrentValue);
+            material.SetFloat("_XMirror", _horizontalValue.CurrentValue);
+			material.SetFloat("_YMirror", _verticalValue.CurrentValue);
         }
         else
         {
-            mat.SetFloat("_XMirror", _horizontal);
-            mat.SetFloat("_YMirror", _vertical);
+			material.SetFloat("_XMirror", _values.DebugSetting.Horizontal);
+			material.SetFloat("_YMirror", _values.DebugSetting.Vertical);
         }
-
-
+			
         //mat is the material containing your shader
-        Graphics.Blit(source,destination,mat);
+		Graphics.Blit(source,destination,material);
     }
-}
-
-[Serializable]
-public class MirrorSetting
-{
-    [Range(0, 1)] public float Horizontal;
-    [Range(0, 1)] public float Vertical;
 }
 

@@ -4,19 +4,9 @@ using System;
 
 public class GlitchEffect : ImageEffectBase
 {
+	[SerializeField] private GlitchEffectValues _values;
 
-    [SerializeField] private bool _debug;
-
-    [Range(0, 10)] [SerializeField] private float _verticalJerk;
-    [Range(0, 10)] [SerializeField] private float _verticalMovement;
-    [Range(0, 10)] [SerializeField] private float _bottomStatic;
-    [Range(0, 10)] [SerializeField] private float _scalines;
-    [Range(0, 10)] [SerializeField] private float _rgbOffset;
-    [Range(0, 10)] [SerializeField] private float _horzFuzz;
-
-    [SerializeField] private GlitchSetting[] _settings;
-    private int _currentSetting;
-
+	[Header("Lerp Values")]
     [SerializeField] private LerpValue _verticalJerkValue;
     [SerializeField] private LerpValue _verticalMovementValue;
     [SerializeField] private LerpValue _bottomStaticValue;
@@ -32,19 +22,20 @@ public class GlitchEffect : ImageEffectBase
         _scalinesValue.Setup(this, 0);
         _rgbOffsetValue.Setup(this, 0);
         _horzFuzzValue.Setup(this, 0);
+
+		SetSetting(_values.CurrentSetting);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            CycleSettings();
+		{
+			SetSetting(_values.Cycle());
+		}
     }
 
-    void CycleSettings()
+	void SetSetting(GlitchSetting setting)
     {
-        _currentSetting = (_currentSetting + 1) % _settings.Length;
-        GlitchSetting setting = _settings[_currentSetting];
-
         _verticalJerkValue.SetValue(setting.VerticalJerk, false);
         _verticalMovementValue.SetValue(setting.VerticalMovement, false);
         _bottomStaticValue.SetValue(setting.BottomStatic, false);
@@ -56,7 +47,7 @@ public class GlitchEffect : ImageEffectBase
     // Called by camera to apply image effect
 	void OnRenderImage (RenderTexture source, RenderTexture destination)
 	{
-	    if (!_debug)
+		if (!_values.Debug)
 	    {
             material.SetFloat("_vertJerkOpt", _verticalJerkValue.CurrentValue);
             material.SetFloat("_vertMovementOpt", _verticalMovementValue.CurrentValue);
@@ -67,28 +58,18 @@ public class GlitchEffect : ImageEffectBase
 	    }
 	    else
 	    {
-            material.SetFloat("_vertJerkOpt", _verticalJerk);
-            material.SetFloat("_vertMovementOpt", _verticalMovement);
-            material.SetFloat("_bottomStaticOpt", _bottomStatic);
-            material.SetFloat("_scalinesOpt", _scalines);
-            material.SetFloat("_rgbOffsetOpt", _rgbOffset);
-            material.SetFloat("_horzFuzzOpt", _horzFuzz);
+			material.SetFloat("_vertJerkOpt", _values.DebugSetting.VerticalJerk);
+			material.SetFloat("_vertMovementOpt", _values.DebugSetting.VerticalMovement);
+			material.SetFloat("_bottomStaticOpt", _values.DebugSetting.BottomStatic);
+			material.SetFloat("_scalinesOpt", _values.DebugSetting.Scanlines);
+			material.SetFloat("_rgbOffsetOpt", _values.DebugSetting.RgbOffset);
+			material.SetFloat("_horzFuzzOpt", _values.DebugSetting.HorziontalFuzz);
 	    }
 
 	    Graphics.Blit (source, destination, material);
 	}
 }
 
-[Serializable]
-public class GlitchSetting
-{
-    [Range(0, 10)] public float VerticalJerk;
-    [Range(0, 10)] public float VerticalMovement;
-    [Range(0, 10)] public float BottomStatic;
-    [Range(0, 10)] public float Scanlines;
-    [Range(0, 10)] public float RgbOffset;
-    [Range(0, 10)] public float HorziontalFuzz;
-}
 
 
 
