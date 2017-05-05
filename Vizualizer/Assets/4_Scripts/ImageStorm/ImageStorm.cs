@@ -6,13 +6,12 @@ namespace ImageStorm
 {
 	public class ImageStorm : MonoBehaviour 
 	{
-		[SerializeField] private ImageStormImage _image;
-		[SerializeField] private ImageStormImageGroup _imageGroup;
+		[SerializeField] private ImageStormDatabase _database;
 		[SerializeField] private MinMaxValue _delayBetweenImages;
 		[SerializeField] private float _showSpeedMultiplier = 1;
 		[SerializeField] private float _switchSpeedMultiplier = 1;
 
-		private List<ImageStormImage> _images;
+		private List<ImageStormSimpleImage> _images;
 		private ImageStromImagePlane[] _planes;
 
 		// Use this for initialization
@@ -34,7 +33,7 @@ namespace ImageStorm
 			while (true)
 			{
 				int currentPlane = 0;
-				_images = _imageGroup.GetRandomImages();
+				_images = _database.GetRandomImages();
 				for (int i = 0; i<_images.Count; i++)
 				{
 					currentPlane = (currentPlane + 1) % _planes.Length;

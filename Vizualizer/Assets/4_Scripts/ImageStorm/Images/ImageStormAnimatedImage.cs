@@ -13,5 +13,15 @@ namespace ImageStorm
 
 		[SerializeField] private AnimationCurve _scaleCurve;
 		[SerializeField] private AnimationCurve _rotationCurve;
+
+		public override float GetRotationAtTime(float time)
+		{
+			return _rotationCurve.Evaluate(time);
+		}
+
+		public override float GetScaleAtTime(float time)
+		{
+			return _scaleCurve.Evaluate(time);
+		}
 	}
 }

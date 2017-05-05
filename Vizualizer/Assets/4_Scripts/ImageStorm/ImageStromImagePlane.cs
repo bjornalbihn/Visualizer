@@ -15,24 +15,28 @@ namespace ImageStorm
 			_renderer = GetComponent<Renderer>();
 		}
 
-		public void DisplayImage(ImageStormImage image, float speedMultiplier)
+		public void DisplayImage(ImageStormSimpleImage image, float speedMultiplier)
 		{
 			gameObject.SetActive(true);
 			Active = true;
 			StartCoroutine(ShowImage(image, speedMultiplier));
 		}
 			
-		private IEnumerator ShowImage(ImageStormImage image, float speedMultiplier)
+		private IEnumerator ShowImage(ImageStormSimpleImage image, float speedMultiplier)
 		{
-			float duration = image.AppearDuration.Random();
+			float duration = image.RandomAppearDuration;
+			float rotation = image.RandomRotation;
 			_renderer.material.mainTexture = image.Texture;
-			transform.localRotation = Quaternion.Euler(0,image.RandomRotation.Random(),0);
 
 			float time = 0;
 			while (time < 1)
 			{
 				time = Mathf.Clamp01(time + Time.deltaTime / duration * speedMultiplier);
-				_renderer.material.SetColor("_TintColor", Color.white * Mathf.Lerp(0, 1, image.Curve.Evaluate(time)));
+				_renderer.material.SetColor("_TintColor", image.GetColorAtTime(time));
+
+				transform.localRotation = Quaternion.Euler(0,image.GetRotationAtTime(time)*rotation,0);
+				transform.localScale = Vector3.one * image.GetScaleAtTime(time);
+
 				yield return 0;
 			}
 

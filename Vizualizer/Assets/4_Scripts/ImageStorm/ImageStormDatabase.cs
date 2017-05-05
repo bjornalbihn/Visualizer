@@ -8,24 +8,31 @@ namespace ImageStorm
 	[CreateAssetMenu(menuName = "ImageStorm/Database")]
 	public class ImageStormDatabase : ScriptableObject 
 	{
-		[SerializeField] private ImageStormImage[] _images;
+		[SerializeField] private float _image;
+		[SerializeField] private List<ImageStormSimpleImage> _images;
 
-		private List<ImageStormImage> _randomImages = new List<ImageStormImage>();
+		private List<ImageStormSimpleImage> _randomImages = new List<ImageStormSimpleImage>();
 		private System.Random _rnd = new System.Random();
 
-		public List<ImageStormImage> GetRandomImages()
+		private void Awake()
 		{
-			if (_randomImages.Count != _images.Length)
+			UpdateList();
+		}
+
+		public List<ImageStormSimpleImage> GetRandomImages()
+		{
+			if (_randomImages.Count != _images.Count)
 				UpdateList();
 			
 			_randomImages.Shuffle(_rnd);
 			return _randomImages;
 		}
 
+		[ContextMenu("UpdateList")]
 		private void UpdateList()
 		{
-			_randomImages = new List<ImageStormImage>();
-			for (int i = 0; i<_images.Length; i++)
+			_randomImages = new List<ImageStormSimpleImage>();
+			for (int i = 0; i<_images.Count; i++)
 				_randomImages.Add(_images[i]);
 		}
 	}
