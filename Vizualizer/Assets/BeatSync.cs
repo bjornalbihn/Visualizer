@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class BeatSync : MonoBehaviour
 {
+	public enum BeatBehaviour
+	{
+		OnBeat,
+		OnOne,
+		OnTwo,
+		OnThree,
+		OnFour,
+		OnOneAndThree,
+		OnTwoAndFour,
+		OnFourBar
+	}
+
     [Range(-500f, 500f)]
     public float _calibrateTiming = -150;
 
@@ -22,6 +34,9 @@ public class BeatSync : MonoBehaviour
     public static Action OnOneAndThree;
     public static Action OnTwoAndFour;
     public static Action OnFourBar;
+
+	public static Action OnActivate;
+	public static Action OnDeactivate;
 
     void Update()
     {
@@ -99,12 +114,12 @@ public class BeatSync : MonoBehaviour
 
         if (_taps.Count > 1)
         {
-            Active = true;
+			SetActive(true);
             EvaluateBeat();
         }
         else // First or last beat
         {
-            Active = false;
+			SetActive(false);
             _beatCount = 0;
             Beat(true);
             _beatDelta = 0;
@@ -125,4 +140,15 @@ public class BeatSync : MonoBehaviour
         }
         _beatDelta = sum / tapDeltas.Count;
     }
+
+	void SetActive(bool state)
+	{
+		Active = state;
+
+		if (state && OnActivate != null)
+			OnActivate();
+		
+		if (!state && OnDeactivate != null)
+			OnDeactivate();
+	}
 }
