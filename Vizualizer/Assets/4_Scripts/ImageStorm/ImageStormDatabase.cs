@@ -5,9 +5,10 @@ using System;
 
 namespace ImageStorm
 {
-	public class ImageStormImageGroup : MonoBehaviour 
+	[CreateAssetMenu(menuName = "ImageStorm/Database")]
+	public class ImageStormDatabase : ScriptableObject 
 	{
-		[SerializeField] public ImageStormImage[] _images;
+		[SerializeField] private ImageStormImage[] _images;
 
 		private List<ImageStormImage> _randomImages = new List<ImageStormImage>();
 		private System.Random _rnd = new System.Random();
