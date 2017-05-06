@@ -4,57 +4,24 @@ using System.Linq;
 using UnityEngine;
 using System;
 
-public class LayerTrigger : MonoBehaviour 
+public class LayerTrigger : AutoVJTrigger 
 {
-	[SerializeField] private BeatSync.BeatBehaviour _syncOn;
-	[SerializeField] private bool _useCooldownDuringBeatsync;
-
-	[SerializeField] private MinMaxValue _coolDown;
 	[SerializeField] private EffectLayerControl _layerControl;
 	[SerializeField] private List<EffectLayer> _layers;
 
 	private EffectLayer _currentLayer;
 	private List<EffectLayer> _layerList = new List<EffectLayer>();
 	private int _currentLayerNumber;
-	private float _timer;
 
-	private void Awake()
+	protected override void Awake()
 	{
 		FillList(); 
-		SignUp();
 	}
 		
-	private void Update()
+	protected override void Fire ()
 	{
-		_timer -= Time.unscaledDeltaTime;
-		if (BeatSync.Active == false)
-		{
-			if (CheckCoolDown())
-				SetNewLayer();
-		}
-	}
+		base.Fire ();
 
-	private void BeatSyncCheck()
-	{
-		if (!enabled)
-			return;
-
-		if (!_useCooldownDuringBeatsync || CheckCoolDown())
-			SetNewLayer();
-	}
-
-	private bool CheckCoolDown()
-	{
-		if (_timer <= 0)
-		{
-			_timer = _coolDown.Random();
-			return true;
-		}
-		return false;
-	}
-
-	private void SetNewLayer()
-	{
 		_currentLayerNumber++;
 
 		if (_currentLayerNumber >= _layers.Count)
@@ -79,20 +46,5 @@ public class LayerTrigger : MonoBehaviour
 	private void GetLayers()
 	{
 		_layers = _layerControl.Layers;
-	}
-
-	private void SignUp()
-	{
-		switch(_syncOn)
-		{
-			case BeatSync.BeatBehaviour.OnBeat : BeatSync.OnBeat += BeatSyncCheck; break;
-			case BeatSync.BeatBehaviour.OnOne : BeatSync.OnOne += BeatSyncCheck; break;
-			case BeatSync.BeatBehaviour.OnTwo : BeatSync.OnTwo += BeatSyncCheck; break;
-			case BeatSync.BeatBehaviour.OnThree : BeatSync.OnThree += BeatSyncCheck; break;
-			case BeatSync.BeatBehaviour.OnFour : BeatSync.OnFour += BeatSyncCheck; break;
-			case BeatSync.BeatBehaviour.OnOneAndThree : BeatSync.OnOneAndThree += BeatSyncCheck; break;
-			case BeatSync.BeatBehaviour.OnTwoAndFour : BeatSync.OnTwoAndFour += BeatSyncCheck; break;
-			case BeatSync.BeatBehaviour.OnFourBar : BeatSync.OnFourBar += BeatSyncCheck; break;
-		}
 	}
 }
