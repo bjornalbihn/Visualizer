@@ -11,10 +11,12 @@ namespace ImageStorm
 		public Texture Texture {get {return _texture;}}
 		public float RandomAppearDuration {get {return _appearDuration.Random();}}
 		public float RandomRotation {get {return _randomRotation.Random();}}
+		public float RandomScale {get {return _randomScale.Random();}}
 
 		[SerializeField] private Texture _texture;
 		[SerializeField] private MinMaxValue _appearDuration;
 		[SerializeField] protected MinMaxValue _randomRotation;
+		[SerializeField] protected MinMaxValue _randomScale;
 		[SerializeField] private AnimationCurve _curve;
 
 		public override Color GetColorAtTime(float time)

@@ -26,6 +26,7 @@ namespace ImageStorm
 		{
 			float duration = image.RandomAppearDuration;
 			float rotation = image.RandomRotation;
+			float scale = image.RandomScale;
 			_renderer.material.mainTexture = image.Texture;
 
 			float time = 0;
@@ -35,7 +36,7 @@ namespace ImageStorm
 				_renderer.material.SetColor("_TintColor", image.GetColorAtTime(time));
 
 				transform.localRotation = Quaternion.Euler(0,image.GetRotationAtTime(time)*rotation,0);
-				transform.localScale = Vector3.one * image.GetScaleAtTime(time);
+				transform.localScale = Vector3.one * image.GetScaleAtTime(time) * scale;
 
 				yield return 0;
 			}

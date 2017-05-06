@@ -10,6 +10,7 @@ namespace ImageStorm
 		public Texture Texture {get;}
 		public float RandomAppearDuration {get;}
 		public float RandomRotation {get;}
+		public float RandomScale {get;}
 
 		public abstract Color GetColorAtTime(float time);
 		public abstract float GetRotationAtTime(float time);

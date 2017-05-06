@@ -45,6 +45,6 @@ namespace ImageStorm
 					yield return new WaitForSeconds(_delayBetweenImages.Random() * _switchSpeedMultiplier);
 				}
 			}
-		}		 
+		}
 	}
 }

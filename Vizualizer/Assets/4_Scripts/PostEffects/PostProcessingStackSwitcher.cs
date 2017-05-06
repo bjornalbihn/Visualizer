@@ -17,9 +17,9 @@ public class PostProcessingStackSwitcher : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.O))
+		if (Input.GetKeyDown(InputMapping.PreviousPostEffectKey))
 			CycleProfile(-1);
-		if (Input.GetKeyDown(KeyCode.P))
+		if (Input.GetKeyDown(InputMapping.NextPostEffectKey))
 			CycleProfile(1);
 	}
 
