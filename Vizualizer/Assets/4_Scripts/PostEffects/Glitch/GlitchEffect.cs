@@ -1,11 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityStandardAssets.ImageEffects;
 using System;
 
 public class GlitchEffect : ImageEffectBase
 {
-	[SerializeField] private GlitchEffectValues _values;
-
 	[Header("Lerp Values")]
     [SerializeField] private LerpValue _verticalJerkValue;
     [SerializeField] private LerpValue _verticalMovementValue;
@@ -23,16 +22,25 @@ public class GlitchEffect : ImageEffectBase
         _rgbOffsetValue.Setup(this, 0);
         _horzFuzzValue.Setup(this, 0);
 
-		SetSetting(_values.CurrentSetting);
-    }
+		SetSetting(_settings[1]);
+	}
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
 		{
-			SetSetting(_values.Cycle());
+			Cycle();
 		}
     }
+
+	[SerializeField] private List<GlitchSetting> _settings;
+	private int _currentSetting;
+
+	private void Cycle()
+	{
+		_currentSetting = (_currentSetting + 1) % _settings.Count;
+		SetSetting(_settings[_currentSetting]);
+	}
 
 	void SetSetting(GlitchSetting setting)
     {
@@ -47,24 +55,13 @@ public class GlitchEffect : ImageEffectBase
     // Called by camera to apply image effect
 	void OnRenderImage (RenderTexture source, RenderTexture destination)
 	{
-		if (!_values.Debug)
-	    {
-            material.SetFloat("_vertJerkOpt", _verticalJerkValue.CurrentValue);
-            material.SetFloat("_vertMovementOpt", _verticalMovementValue.CurrentValue);
-            material.SetFloat("_bottomStaticOpt", _bottomStaticValue.CurrentValue);
-            material.SetFloat("_scalinesOpt", _scalinesValue.CurrentValue);
-            material.SetFloat("_rgbOffsetOpt", _rgbOffsetValue.CurrentValue);
-            material.SetFloat("_horzFuzzOpt", _horzFuzzValue.CurrentValue);
-	    }
-	    else
-	    {
-			material.SetFloat("_vertJerkOpt", _values.DebugSetting.VerticalJerk);
-			material.SetFloat("_vertMovementOpt", _values.DebugSetting.VerticalMovement);
-			material.SetFloat("_bottomStaticOpt", _values.DebugSetting.BottomStatic);
-			material.SetFloat("_scalinesOpt", _values.DebugSetting.Scanlines);
-			material.SetFloat("_rgbOffsetOpt", _values.DebugSetting.RgbOffset);
-			material.SetFloat("_horzFuzzOpt", _values.DebugSetting.HorziontalFuzz);
-	    }
+
+        material.SetFloat("_vertJerkOpt", _verticalJerkValue.CurrentValue);
+        material.SetFloat("_vertMovementOpt", _verticalMovementValue.CurrentValue);
+        material.SetFloat("_bottomStaticOpt", _bottomStaticValue.CurrentValue);
+        material.SetFloat("_scalinesOpt", _scalinesValue.CurrentValue);
+        material.SetFloat("_rgbOffsetOpt", _rgbOffsetValue.CurrentValue);
+        material.SetFloat("_horzFuzzOpt", _horzFuzzValue.CurrentValue);
 
 	    Graphics.Blit (source, destination, material);
 	}
