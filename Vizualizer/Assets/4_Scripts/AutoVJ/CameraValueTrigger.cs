@@ -45,6 +45,9 @@ public class CameraValueTrigger : MonoBehaviour
 
 	private void BeatSyncCheck()
 	{
+		if (!enabled)
+			return;
+
 		if (!_useCooldownDuringBeatsync || CheckCoolDown())
 			SetNewValue();
 	}

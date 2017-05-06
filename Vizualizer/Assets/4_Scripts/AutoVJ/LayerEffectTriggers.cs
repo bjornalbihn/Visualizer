@@ -15,6 +15,11 @@ public class LayerEffectTriggers : MonoBehaviour
 	private EffectLayer _currentLayer;
 	private float _timer;
 
+	private void Awake()
+	{
+		SignUp();
+	}
+
 	private void Update()
 	{
 		_timer -= Time.unscaledDeltaTime;
@@ -27,6 +32,9 @@ public class LayerEffectTriggers : MonoBehaviour
 
 	private void BeatSyncCheck()
 	{
+		if (!enabled)
+			return;
+
 		if (!_useCooldownDuringBeatsync || CheckCoolDown())
 			FireTrigger();
 	}

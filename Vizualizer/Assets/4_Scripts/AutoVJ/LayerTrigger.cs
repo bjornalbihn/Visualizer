@@ -36,6 +36,9 @@ public class LayerTrigger : MonoBehaviour
 
 	private void BeatSyncCheck()
 	{
+		if (!enabled)
+			return;
+
 		if (!_useCooldownDuringBeatsync || CheckCoolDown())
 			SetNewLayer();
 	}

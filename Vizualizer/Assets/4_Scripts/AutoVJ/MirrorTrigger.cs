@@ -37,7 +37,9 @@ public class MirrorTrigger : MonoBehaviour
 
 	private void BeatSyncCheck()
 	{
-		Debug.Log("gaga");
+		if (!enabled)
+			return;
+
 		if (!_useCooldownDuringBeatsync || CheckCoolDown())
 			SetNewMirrorMode();
 	}
