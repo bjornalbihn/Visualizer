@@ -12,9 +12,9 @@ public class EffectLayerManager : MonoBehaviour
 
 	private void Awake()
 	{
-		List<string> backgroundKeys = new List<string>() {"1","2","3","4","5","6","7","8","9","0"};
-		List<string> midGroundKeys = new List<string>() {"q","w","e","r","t","y","u","i","o","p"};
-		List<string> foregroundKeys = new List<string>() {"a","s","d","f","g","h","j","k","l","ö"};
+		List<string> backgroundKeys = new List<string>() {"1","2","3","4","5","6","7","8"};
+		List<string> midGroundKeys = new List<string>() {"q","w","e","r","t","y","u","i"};
+		List<string> foregroundKeys = new List<string>() {"a","s","d","f","g","h","j","k"};
 
 		_foreground.Setup(foregroundKeys);
 		_midground.Setup(midGroundKeys);
