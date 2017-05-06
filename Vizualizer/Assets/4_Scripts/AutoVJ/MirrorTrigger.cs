@@ -8,8 +8,6 @@ public class MirrorTrigger : AutoVJTrigger
 	[SerializeField] private Mirror _mirrorEffect;
 	[SerializeField] private int[] _mirrorModes;
 
-	private float _timer;
-
 	protected override void Fire ()
 	{
 		base.Fire ();

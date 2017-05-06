@@ -15,6 +15,7 @@ public class LayerTrigger : AutoVJTrigger
 
 	protected override void Awake()
 	{
+		base.Awake();
 		FillList(); 
 	}
 		
