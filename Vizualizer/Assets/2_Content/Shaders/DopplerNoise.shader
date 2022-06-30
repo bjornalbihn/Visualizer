@@ -1,4 +1,6 @@
-﻿Shader "Custom/DopplerNoise"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/DopplerNoise"
 {
 	Properties{
 		_PropertyOne("BandingResolution",  Range(0.005, 0.1)) = .1
@@ -31,7 +33,7 @@
 			v2f vert(float4 v:POSITION) : SV_POSITION
 			{
 				v2f o;
-				o.position = mul(UNITY_MATRIX_MVP, v);
+				o.position = UnityObjectToClipPos(v);
 				return o;
 			}
 

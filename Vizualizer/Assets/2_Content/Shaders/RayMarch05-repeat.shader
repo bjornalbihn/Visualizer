@@ -1,4 +1,6 @@
-﻿Shader "Custom/Raymarching Noise Clouds - repeat"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/Raymarching Noise Clouds - repeat"
 {
 	Properties
 	{
@@ -72,7 +74,7 @@
 			v2f vert(appdata_base  v)
 			{
 				v2f o;
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = v.texcoord;
 				return o;
 			}
