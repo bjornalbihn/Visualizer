@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
 Shader "bteitler/RaymarchFramework/RayMarchSkyboxSeascapeOptimizing" {
     Properties {
@@ -230,7 +232,7 @@ Shader "bteitler/RaymarchFramework/RayMarchSkyboxSeascapeOptimizing" {
             	SEA_TIME = 0; // TODO: swap above
             
                 v2f o;
-                o.position = mul (UNITY_MATRIX_MVP, i.vertex);
+                o.position = UnityObjectToClipPos (i.vertex);
                 
                 float4 vertexWorld = mul(unity_ObjectToWorld, i.vertex);
                 

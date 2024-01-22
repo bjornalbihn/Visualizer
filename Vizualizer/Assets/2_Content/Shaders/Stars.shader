@@ -1,4 +1,6 @@
-﻿Shader "Custom/Stars"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/Stars"
 {
 	Properties
 	{
@@ -55,7 +57,7 @@
 
                 v2f o;
 				//o.position = float4(1,1,1,1);
-                o.position = mul (UNITY_MATRIX_MVP, i.vertex);
+                o.position = UnityObjectToClipPos (i.vertex);
                 
                 float4 vertexWorldFisheye = mul(unity_ObjectToWorld, i.vertex);
 				float4 vertexWorldFlat = mul(float4(_CamPos.xyz, 0), i.vertex);

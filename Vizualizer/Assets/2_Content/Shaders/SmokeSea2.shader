@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
 Shader "bteitler/RaymarchFramework/SSmokes2" {
     Properties {
@@ -90,7 +92,7 @@ Shader "bteitler/RaymarchFramework/SSmokes2" {
             v2f vert(appdata_full i) {
 
                 v2f o;
-                o.position = mul (UNITY_MATRIX_MVP, i.vertex);
+                o.position = UnityObjectToClipPos (i.vertex);
                 
                 float4 vertexWorld = mul(unity_ObjectToWorld, i.vertex);
                 
