@@ -20,7 +20,7 @@ public class EffectLayerManager : MonoBehaviour
 		_foreground.Setup(foregroundKeys);
 		_midground.Setup(midGroundKeys);
 		_background.Setup(backgroundKeys);
-		_logo.Setup(new List<string>() { "m"});
+		_logo.Setup(new List<string>() { "9","0"});
 	}
 
 	private void Update()
