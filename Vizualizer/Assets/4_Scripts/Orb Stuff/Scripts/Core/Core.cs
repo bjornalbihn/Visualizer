@@ -11,6 +11,8 @@ public class Core : MonoBehaviour
 	[SerializeField] private AudioProcessor m_audioProcessor;
 	[SerializeField] private AudioSource m_audioSource;
 
+	[SerializeField] private bool _showMouseCursor;
+
 	public static Camera MainCamera {get{return Instance.m_mainCamera;}}
 	public static CameraController CameraController {get{return Instance.m_cameraController;}}
 	public static VisualizerController VisualizerController {get{return Instance.m_visualizerController;}}
@@ -20,5 +22,6 @@ public class Core : MonoBehaviour
 	public void Awake()
 	{
 		Instance = this;
+		Cursor.visible = !_showMouseCursor;
 	}
 }

@@ -5,13 +5,14 @@ using UnityEngine;
 public class AutoVJ : MonoBehaviour 
 {
 	[SerializeField] private GameObject[] _effectTriggers;
+	[SerializeField] private bool _runOnStart;
 
 	bool _state;
 
 	// Use this for initialization
 	void Awake () 
 	{
-		SetAllActive(false);
+		SetAllActive(_runOnStart);
 	}
 	
 	// Update is called once per frame

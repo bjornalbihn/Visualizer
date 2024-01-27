@@ -76,7 +76,9 @@ public class LogoDisplayer : MonoBehaviour {
             Debug.Log("Number of textures remaining: " +logos.Count);
         }
         StopAllCoroutines();
-        StartCoroutine(FlashLogos());
+        if(gameObject.activeSelf) { 
+            StartCoroutine(FlashLogos());
+        }
     }
 
     IEnumerator FlashLogos()

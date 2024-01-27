@@ -9,6 +9,7 @@ public class EffectLayerManager : MonoBehaviour
 	[SerializeField] private EffectLayerControl _foreground;
 	[SerializeField] private EffectLayerControl _midground;
 	[SerializeField] private EffectLayerControl _background;
+	[SerializeField] private EffectLayerControl _logo;
 
 	private void Awake()
 	{
@@ -19,6 +20,7 @@ public class EffectLayerManager : MonoBehaviour
 		_foreground.Setup(foregroundKeys);
 		_midground.Setup(midGroundKeys);
 		_background.Setup(backgroundKeys);
+		_logo.Setup(new List<string>() { "m"});
 	}
 
 	private void Update()
@@ -50,6 +52,8 @@ public class EffectLayerManager : MonoBehaviour
 			_midground.ToggleEffectsActive();
 		if (activeDevice.DPadRight.WasPressed)
 			_background.ToggleEffectsActive();
+		if(activeDevice.DPadDown.WasPressed)
+			_logo.ToggleEffectsActive();
 	}
 
 	private void CheckEffectsFired(InputDevice activeDevice)
@@ -69,6 +73,7 @@ public class EffectLayerManager : MonoBehaviour
 		_foreground.FireEffectOnActiveLayer(effect);
 		_midground.FireEffectOnActiveLayer(effect);
 		_background.FireEffectOnActiveLayer(effect);
+		_logo.FireEffectOnActiveLayer(effect);
 	}
 
     private void SendAnalogValues(InputDevice activeDevice)
@@ -86,5 +91,6 @@ public class EffectLayerManager : MonoBehaviour
         _foreground.SendAnalogValues(leftStick, rightStick, leftTrigger, rightTrigger);
         _midground.SendAnalogValues(leftStick, rightStick, leftTrigger, rightTrigger);
         _background.SendAnalogValues(leftStick, rightStick, leftTrigger, rightTrigger);
-    }
+        _logo.SendAnalogValues(leftStick, rightStick, leftTrigger, rightTrigger);
+	}
 }
